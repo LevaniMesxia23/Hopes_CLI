@@ -10,3 +10,7 @@ export const newHope = async (hope,tags) =>{
   return data
 }
 
+export const getAllHopes = async () => {
+  const db = await getDB()
+  return db.hopes
+}
