@@ -14,7 +14,7 @@ export const saveDB = async (db) => {
 
 export const insertDB = async (data) => {
   const db = await getDB()
-  db.hope.push.push(data)
+  db.hope.push(data)
   await saveDB(db)
   return data
 }

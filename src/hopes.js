@@ -12,7 +12,7 @@ export const newHope = async (hope, tags) => {
 
 export const getAllHopes = async () => {
   const db = await getDB();
-  return db.hopes;
+  return db.hope;
 };
 
 export const findHope = async (filter) => {
@@ -31,4 +31,8 @@ export const removeHope = async (id) =>{
     return id
   }
   return "Invalid ID, try again"
+}
+
+export const removeAllHopes = () => {
+  saveDB({hope : []})
 }

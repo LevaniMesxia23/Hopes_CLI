@@ -1,19 +1,21 @@
-import yargs, { argv } from "yargs";
+import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
+import { getAllHopes, newHope } from "./hopes.js";
 
 yargs(hideBin(process.argv))
   .command(
-    "new <hope>",
+    "new <hope>", //მაქვს ბრძანება new,რომელსაც სჭირდება არგუმენტად hope
     "create new hope",
     (yargs) => {
-      //მაქვს ბრძანება new,რომელსაც სჭირდება არგუმენტად hope
       return yargs.positional("hope", {
         describe: "the hope to create",
         type: "string",
       });
     },
-    (argv) => {
-      console.log(argv);
+    async (argv) => {
+      const tags = argv.tags ? argv.tags.split(",") : []
+      const note = await newHope(argv.hope, tags)
+      console.log(note);
     }
   )
   .option("tags", {
@@ -25,8 +27,9 @@ yargs(hideBin(process.argv))
     "all",
     "get all notes",
     () => {},
-    (argv) => {
-      console.log(argv);
+    async () => {
+      const hopes = await getAllHopes()
+      console.log(hopes);
     }
   )
   .command("find <filter>", "get matching hopes", (yargs) => {
