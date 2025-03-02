@@ -21,3 +21,14 @@ export const findHope = async (filter) => {
     hope.content.toLowerCase().includes(filter.toLowerCase())
   );
 };
+
+export const removeHope = async (id) =>{
+  const hopes = await getAllHopes()
+  const match = hopes.find(hope => hope.id == id)
+  if(match){
+    const newHopes = hopes.filter(item => item.id != id)
+    await saveDB({hopes: newHopes})
+    return id
+  }
+  return "Invalid ID, try again"
+}
