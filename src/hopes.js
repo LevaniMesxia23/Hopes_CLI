@@ -27,7 +27,7 @@ export const removeHope = async (id) =>{
   const match = hopes.find(hope => hope.id == id)
   if(match){
     const newHopes = hopes.filter(item => item.id != id)
-    await saveDB({hopes: newHopes})
+    await saveDB({hope: newHopes})
     return id
   }
   return "Invalid ID, try again"

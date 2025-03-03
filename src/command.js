@@ -1,6 +1,6 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { getAllHopes, newHope } from "./hopes.js";
+import { findHope, getAllHopes, newHope } from "./hopes.js";
 
 yargs(hideBin(process.argv))
   .command(
@@ -13,8 +13,8 @@ yargs(hideBin(process.argv))
       });
     },
     async (argv) => {
-      const tags = argv.tags ? argv.tags.split(",") : []
-      const note = await newHope(argv.hope, tags)
+      const tags = argv.tags ? argv.tags.split(",") : [];
+      const note = await newHope(argv.hope, tags);
       console.log(note);
     }
   )
@@ -28,37 +28,47 @@ yargs(hideBin(process.argv))
     "get all notes",
     () => {},
     async () => {
-      const hopes = await getAllHopes()
+      const hopes = await getAllHopes();
       console.log(hopes);
     }
   )
-  .command("find <filter>", "get matching hopes", (yargs) => {
-    return (
-      yargs.positional("filter", {
+  .command(
+    "find <filter>",
+    "get matching hopes",
+    (yargs) => {
+      return yargs.positional("filter", {
         describe: "the filter to apply to the hopes",
         type: "string",
-      }),
-      (argv) => {
-        console.log(argv);
-      }
-    );
-  })
+      });
+    },
+    async (argv) => {
+      const hopes = await findHope(argv.filter);
+      console.log(hopes);
+    }
+  )
   .command("remove <id>", "remove a hope by id", (yargs) => {
     return yargs.positional("id", {
       describe: "the id of the hope remove",
       type: "number",
     });
   })
-  .command("web [port]", "start a web server", (yargs)=>{
-    return yargs.positional("port", {
-      describe: "the port to start the server on",
-      type: "number",
-      default: 5000
-    }),
-    (argv) => {
-      console.log(argv);
-    }
+  .command("web [port]", "start a web server", (yargs) => {
+    return (
+      yargs.positional("port", {
+        describe: "the port to start the server on",
+        type: "number",
+        default: 5000,
+      }),
+      (argv) => {
+        console.log(argv);
+      }
+    );
   })
-  .command("clean", "remove all hopes", () => {}, (argv) => {})
+  .command(
+    "clean",
+    "remove all hopes",
+    () => {},
+    (argv) => {}
+  )
   .demandCommand(1) // აუცილებელია 1 ბრძანება
   .parse();
