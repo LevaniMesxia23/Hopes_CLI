@@ -1,10 +1,11 @@
+#!/usr/bin/env node
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
-import { findHope, getAllHopes, newHope } from "./hopes.js";
+import { findHope, getAllHopes, newHope, removeAllHopes, removeHope } from "./hopes.js";
 
 yargs(hideBin(process.argv))
   .command(
-    "new <hope>", //მაქვს ბრძანება new,რომელსაც სჭირდება არგუმენტად hope
+    "new <hope>", 
     "create new hope",
     (yargs) => {
       return yargs.positional("hope", {
@@ -19,14 +20,14 @@ yargs(hideBin(process.argv))
     }
   )
   .option("tags", {
-    alias: "t", // შემოკლებული ვარიანტი
+    alias: "t", 
     type: "string",
     description: "tags for the hope",
   })
   .command(
     "all",
     "get all notes",
-    () => {},
+    () => {}, 
     async () => {
       const hopes = await getAllHopes();
       console.log(hopes);
@@ -46,29 +47,46 @@ yargs(hideBin(process.argv))
       console.log(hopes);
     }
   )
-  .command("remove <id>", "remove a hope by id", (yargs) => {
-    return yargs.positional("id", {
-      describe: "the id of the hope remove",
-      type: "number",
-    });
-  })
-  .command("web [port]", "start a web server", (yargs) => {
-    return (
-      yargs.positional("port", {
+  .command(
+    "remove <id>",
+    "remove a hope by id",
+    (yargs) => {
+      return yargs.positional("id", {
+        describe: "the id of the hope to remove",
+        type: "number",
+      });
+    },
+    async (argv) => {
+      const id = await removeHope(argv.id);
+      if (id) {
+        console.log("Hope removed ID:" + id);
+      } else {
+        console.log("Invalid ID, try again");
+      }
+    }
+  )
+  .command(
+    "web [port]",
+    "start a web server",
+    (yargs) => {
+      return yargs.positional("port", {
         describe: "the port to start the server on",
         type: "number",
         default: 5000,
-      }),
-      (argv) => {
-        console.log(argv);
-      }
-    );
-  })
+      });
+    },
+    (argv) => {
+      console.log(argv);
+    }
+  )
   .command(
     "clean",
     "remove all hopes",
-    () => {},
-    (argv) => {}
+    () => {}, 
+     () => {
+      removeAllHopes();
+      console.log("all hopes removed");
+    }
   )
-  .demandCommand(1) // აუცილებელია 1 ბრძანება
+  .demandCommand(1) 
   .parse();
