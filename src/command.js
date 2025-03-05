@@ -2,6 +2,7 @@
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { findHope, getAllHopes, newHope, removeAllHopes, removeHope } from "./hopes.js";
+import { start } from "./server.js";
 
 yargs(hideBin(process.argv))
   .command(
@@ -72,11 +73,12 @@ yargs(hideBin(process.argv))
       return yargs.positional("port", {
         describe: "the port to start the server on",
         type: "number",
-        default: 5000,
+        default: 3000,
       });
     },
-    (argv) => {
-      console.log(argv);
+    async (argv) => {
+      const hopes = await getAllHopes();
+      start(hopes, argv.port);
     }
   )
   .command(
