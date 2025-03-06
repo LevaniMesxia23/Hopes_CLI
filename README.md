@@ -1,5 +1,5 @@
-,# Project Name
-  MYFIRST_CLI
+# Hopes_CLI
+  
 
 ## Description
 
@@ -9,14 +9,13 @@
 
 
 ## Features
-//add features which commands are used in this project
 
-- Add a new hope -> "new <hope>"
-- View all hopes -> "all"
-- find a hope by id -> "find <filter>"
-- Remove a hope -> "remove <id>"
-- Start a web server -> "web [port]"
-- Clean all hopes -> "clean"
+- Add a new hope -> new "Become a great developer"
+- View all hopes -> all
+- find a hope by id -> find "developer"
+- Remove a hope -> remove "1"
+- Start a web server -> web 3000
+- Clean all hopes -> clean
 
 ## Technologies Used
 
@@ -51,10 +50,6 @@
 2. Create a new branch
 3. Make your changes and commit them
 4. Push your changes to your fork 
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
 
 
 ## Contact
