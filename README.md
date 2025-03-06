@@ -1,8 +1,6 @@
 # Hopes_CLI
   
 
-## Description
-
   This project is a simple web application that allows users to manage their hopes.
   It is a command line interface that allows users to add, remove, view, and find hopes.
   It also allows users to start a web server and clean all hopes.
