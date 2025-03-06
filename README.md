@@ -34,16 +34,6 @@
 4. Open the index.html file in your browser
 
 
-## Usage
-
-1. Add a new hope
-2. Remove a hope
-3. View all hopes
-4. find a hope by id
-5. Start a web server
-6. Clean all hopes
-
-
 ## Contributing
 
 1. Fork the repository
